@@ -1,2 +1,4 @@
 Đang học đến react component
 Đã cài react dev tool và redux dev tool
+luôn tạo thư mục components để viết logic
+luôn tạo một nhánh khác main để có thể test code trước khi gộp lại vào main
