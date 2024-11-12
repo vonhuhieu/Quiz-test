@@ -6,3 +6,9 @@ học tiếp nào
 truyền function từ cha sang con không có dấu (), còn gọi function để dùng thì có dấu ()
 áp dụng để làm bình luận
 cài đặt npm install --save-exact sass@1.53.0
+
+
+Nếu class, cần hàm constructor
+Muốn component render lại => cập nhật biến state
+DOM: chính là tab elements
+Tại sao react nhanh ? React có 2 dom: Dom thật Dom ảo
