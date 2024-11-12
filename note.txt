@@ -5,3 +5,4 @@ luôn tạo một nhánh khác main để có thể test code trước khi gộp
 học tiếp nào
 truyền function từ cha sang con không có dấu (), còn gọi function để dùng thì có dấu ()
 áp dụng để làm bình luận
+cài đặt npm install --save-exact sass@1.53.0
