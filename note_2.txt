@@ -1,0 +1,4 @@
+lifecycles của react
+- constructor: hàm tạo, khởi tạo state
+- render: khi thay đổi props hoặc state hoặc hàm dừng, hàm render sẽ chạy lại
+- didmount: gọi api
