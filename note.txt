@@ -3,3 +3,5 @@
 luôn tạo thư mục components để viết logic
 luôn tạo một nhánh khác main để có thể test code trước khi gộp lại vào main
 học tiếp nào
+truyền function từ cha sang con không có dấu (), còn gọi function để dùng thì có dấu ()
+áp dụng để làm bình luận
