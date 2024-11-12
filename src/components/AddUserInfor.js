@@ -29,6 +29,7 @@ class AddUserInfor extends React.Component {
             age: this.state.age,
         });
     }
+    
     render() {
         return (
             <div>

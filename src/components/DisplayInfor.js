@@ -18,7 +18,7 @@ class DisplayInfor extends React.Component {
         // props => viết tắt properties
         return (
             <div className="display-infor-container">
-                <img src={logo}/>
+                {/* <img src={logo}/> */}
                 <div>
                     <span onClick={() => { this.handleShowHide() }}>{this.state.isShowListUser == true ? "hide" : "show"} list users</span>
                 </div>
@@ -26,10 +26,13 @@ class DisplayInfor extends React.Component {
                     <>
                         {listUsers.map((value, key) => {
                             return (
-                                <div key={value.id} className={parseInt(value.age) > 18 ? "pink" : "green"}>
+                                <div key={value.id} className={parseInt(value.age) > 18 ? "red" : "green"}>
                                     <div>User's ID: {value.id}</div>
                                     <div>User's Name: {value.name}</div>
                                     <div>User's Age: {value.age}</div>
+                                    <div>
+                                        <button onClick={() => this.props.handleDeleteUser(value.id)}>Delete</button>
+                                    </div>
                                     <br />
                                 </div>
                             );
