@@ -2,3 +2,7 @@ lifecycles của react
 - constructor: hàm tạo, khởi tạo state
 - render: khi thay đổi props hoặc state hoặc hàm dừng, hàm render sẽ chạy lại
 - didmount: gọi api
+
+cài bearer và cách sử dụng
+cài thư viện react router dom
+cài bootstrap
