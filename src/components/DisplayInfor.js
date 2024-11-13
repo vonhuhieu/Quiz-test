@@ -1,70 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './DisplayInfor.scss';
 import logo from '../logo.svg'
 
-// stateless vs staleful
-// class DisplayInfor extends React.Component {
-
-//     render() {
-//         console.log('call me render');
-//         // destructuring array/object
-//         const { listUsers } = this.props;
-//         // console.log(listUsers);
-//         // props => viết tắt properties
-//         return (
-//             <div className="display-infor-container">
-//                 {true &&
-//                     <>
-//                         {listUsers.map((value, key) => {
-//                             return (
-//                                 <div key={value.id} className={parseInt(value.age) > 18 ? "red" : "green"}>
-//                                     <div>User's ID: {value.id}</div>
-//                                     <div>User's Name: {value.name}</div>
-//                                     <div>User's Age: {value.age}</div>
-//                                     <div>
-//                                         <button onClick={() => this.props.handleDeleteUser(value.id)}>Delete</button>
-//                                     </div>
-//                                     <br />
-//                                 </div>
-//                             );
-//                         })}
-//                     </>
-//                 }
-//             </div>
-//         );
-//     }
-// }
-
 const DisplayInfor = (props) => {
+    // xử lý listUsers
     const { listUsers } = props;
-
-    const [isShowHideListUser, setShowHideListUser] = useState(true);
-
-    const handleShowHideListUser = () => {
-        setShowHideListUser(!isShowHideListUser);
+    const renderListUsers = () => {
+        if (listUsers.length > 0) {
+            return listUsers.map((value, key) => {
+                return (
+                    <div key={value.id} className={parseInt(value.age) >= 30 ? "red" : "green"}>
+                        <div>ID User: {value.id}</div>
+                        <div>Name User: {value.name}</div>
+                        <div>Age User: {value.age}</div>
+                        <button onClick={() => { props.handleDeleteUser(value.id) }}>Delete</button>
+                        <hr />
+                    </div>
+                );
+            });
+        }
     };
+
+    // xử lý button
+    const [showButton, setShowButton] = useState(true);
+    const handleShowButton = () => {
+        setShowButton(!showButton);
+    };
+
+    console.log("call me render");
+
+    useEffect(
+        () => {
+            if (listUsers.length == 0) {
+                alert("You deleted all users");
+            }
+            console.log("call me useEffect");
+        }, [listUsers]
+    );
+
     return (
         <div className="display-infor-container">
-            <div>
-                <span onClick={() => { handleShowHideListUser() }}>{isShowHideListUser == true ? "Hide list users" : "Show list users"}</span>
-            </div>
-            {isShowHideListUser &&
-                <>
-                    {listUsers.map((value, key) => {
-                        return (
-                            <div key={value.id} className={parseInt(value.age) > 18 ? "red" : "green"}>
-                                <div>User's ID: {value.id}</div>
-                                <div>User's Name: {value.name}</div>
-                                <div>User's Age: {value.age}</div>
-                                <div>
-                                    <button onClick={() => props.handleDeleteUser(value.id)}>Delete</button>
-                                </div>
-                                <br />
-                            </div>
-                        );
-                    })}
-                </>
-            }
+            <button onClick={() => { handleShowButton() }}>{showButton == true ? "Hide list users" : "Show list users"}</button>
+            <br /><br />
+            {showButton == true && renderListUsers()}
         </div>
     );
 };
