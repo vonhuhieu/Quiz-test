@@ -8,6 +8,17 @@ const HomePage = (props) => {
                     type="video/webm"
                 />
             </video>
+            <div className='homepage-content'>
+                <div className='first-title'>
+                    Create a UI with bootstrap
+                </div>
+                <div className='second-title'>
+                    CSS in the web
+                </div>
+                <div className='third-title'>
+                    <button className='button'>Let's go</button>
+                </div>
+            </div>
         </div>
     );
 };
