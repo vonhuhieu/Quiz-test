@@ -8,14 +8,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.app-container{
-  .header-container{
-    .navbar-nav{
-      .nav-link{
-        &.active{
+.app-container {
+  .header-container {
+    .navbar-nav {
+      z-index: 10;
+      opacity: 0.6;
+      .nav-link {
+        &.active {
           color: #00bfff;
         }
       }
     }
   }
+}
+
+video {
+  position: fixed; /* Đảm bảo video cố định trên màn hình */
+  top: 50%; /* Canh giữa theo chiều dọc */
+  left: 50%; /* Canh giữa theo chiều ngang */
+  transform: translate(-50%, -50%); /* Đưa video về chính giữa màn hình */
+  min-width: 100%; /* Chiếm ít nhất 100% chiều rộng màn hình */
+  min-height: 100%; /* Chiếm ít nhất 100% chiều cao màn hình */
+  object-fit: cover; /* Đảm bảo video không bị bóp méo và sẽ kéo dài để bao phủ toàn bộ màn hình */
+  z-index: -1; /* Đảm bảo video nằm dưới các phần tử khác trên trang */
 }
