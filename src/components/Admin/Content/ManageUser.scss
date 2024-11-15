@@ -1,5 +1,22 @@
 .manage-user-container {
-    .user-content {}
+    padding: 10px;
+
+    .users-content {
+        .btn-add-new {
+            margin: 15px 0px;
+        }
+        button{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+    }
+
+    .title {
+        font-weight: bolder;
+        font-size: 20px;
+    }
 }
 
 .modal-add-user {
@@ -28,7 +45,8 @@
         background: #eeeeee;
         cursor: pointer;
         border-radius: 5px;
-        &:hover{
+
+        &:hover {
             background-color: #dcdcdc;
         }
     }

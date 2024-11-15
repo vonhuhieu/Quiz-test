@@ -2,13 +2,22 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
+import Validate from '../../Validate/Validate';
+import axios from 'axios';
 
-const ModalCreateUser = () => {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+const ModalCreateUser = (props) => {
+    const { show, setShow } = props;
+    const handleClose = () => {
+        setShow(false);
+        setInputs({
+            email: "",
+            password: "",
+            username: "",
+            role: "",
+        });
+        setPreviewImage("");
+        setImage("");
+    };
     // các input bình thường
     const [inputs, setInputs] = useState({
         email: '',
@@ -34,22 +43,60 @@ const ModalCreateUser = () => {
         }));
     };
 
-    const handleSubmit = (event) => {
+    // Validate
+    const [errors, setErrors] = useState({});
+
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      };
+      
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(inputs);
+        let errorsSubmit = {};
+        let check_validate = true;
+        if(inputs.email === "" || !validateEmail(inputs.email))
+        {
+            check_validate = false;
+            errorsSubmit.email = "Invalid Email";
+        }
+        if(inputs.password === "")
+        {
+            check_validate = false;
+            errorsSubmit.password = "Password must not be empty";
+        }
+        if(inputs.username === "")
+        {
+            check_validate = false;
+            errorsSubmit.username = "Username must not be empty";
+        }
+        if(inputs.role === "")
+        {
+            check_validate = false;
+            errorsSubmit.role = "Role must not be empty";
+        }
+        setErrors(errorsSubmit);
+        if(check_validate == true)
+        {
+            const data = new FormData();
+            data.append('email', inputs.email);
+            data.append('password', inputs.password);
+            data.append('username', inputs.username);
+            data.append('role', inputs.role);
+            data.append('userImage', image);
+            let response = await axios.post('http://localhost:8081/api/v1/participant', data);
+            console.log("check res:", response);
+        }
     };
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button>
-
-            <Modal show={show} onHide={handleClose} size='xl' backdrop="static" className='modal-add-user'>
+            <Modal show={show} onHide={() => { handleClose() }} size='xl' backdrop="static" className='modal-add-user'>
                 <Modal.Header closeButton>
                     <Modal.Title>Add new user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form className="row g-3" encType='multipart/form-data' onSubmit={(event) => { handleSubmit(event) }}>
+                    <Validate errors={errors}/>
+                    <form className="row g-3" encType='multipart/form-data' >
                         <div className="col-md-6">
                             <label className="form-label">Email</label>
                             <input type="email" name='email' value={inputs.email} className="form-control" onChange={(event) => { handleInput(event) }} />
@@ -82,16 +129,13 @@ const ModalCreateUser = () => {
                                 <span>Preview Image</span>
                             }
                         </div>
-                        <div className="col-md-4">
-                            <button type='submit' name='submit'>Confirm</button>
-                        </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={() => { handleClose() }}>
                         Close
                     </Button>
-                    <Button type='submit' variant="primary" onClick={handleClose} >
+                    <Button type='submit' variant="primary" onClick={(event) => {handleSubmit(event)}} >
                         Save
                     </Button>
                 </Modal.Footer>
