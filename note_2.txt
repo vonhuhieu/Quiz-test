@@ -11,3 +11,8 @@ cài proside-bar 0.7.1
 cài react icon 4.4.0
 
 cài axios, react toastify, react paginate 
+
+Network:
+Header: 
+Payload: data gửi lên server
+preview

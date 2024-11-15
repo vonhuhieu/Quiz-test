@@ -4,6 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import Validate from '../../Validate/Validate';
 import axios from 'axios';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ModalCreateUser = (props) => {
     const { show, setShow } = props;
@@ -17,6 +19,7 @@ const ModalCreateUser = (props) => {
         });
         setPreviewImage("");
         setImage("");
+        setErrors({});
     };
     // các input bình thường
     const [inputs, setInputs] = useState({
@@ -85,7 +88,16 @@ const ModalCreateUser = (props) => {
             data.append('role', inputs.role);
             data.append('userImage', image);
             let response = await axios.post('http://localhost:8081/api/v1/participant', data);
-            console.log("check res:", response);
+            console.log("check res:", response.data);
+            if(response.data && response.data.EC === 0)
+            {
+                toast.success(response.data.EM);
+                handleClose();
+            }
+            if(response.data && response.data.EC !==0)
+            {
+                toast.error(response.data.EM);
+            }
         }
     };
     return (
@@ -140,6 +152,19 @@ const ModalCreateUser = (props) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
         </>
     );
 }
