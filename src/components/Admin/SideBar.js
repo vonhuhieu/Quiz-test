@@ -12,8 +12,7 @@ import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } fro
 import sidebarBg from '../../assets/bg2.jpg';
 import { GiBassetHoundHead, GiGuitar } from "react-icons/gi";
 import { GiGuitarBassHead } from "react-icons/gi";
-
-
+import { Link } from "react-router-dom";
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
@@ -39,7 +38,7 @@ const SideBar = (props) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        <GiGuitar color={"#b40a0a"} size={"5em"}/>
+                        <GiGuitar color={"#b40a0a"} size={"5em"} />
                         <span>Hoi Dan IT</span>
                     </div>
                 </SidebarHeader>
@@ -49,15 +48,19 @@ const SideBar = (props) => {
                         <MenuItem
                             icon={<FaTachometerAlt />}
                         >
-                            Dashboard
+                            dashboard
+                            <Link to="/admin" />
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
                         <SubMenu
-                            icon={<FaGem/>}
+                            icon={<FaGem />}
                             title="Features"
                         >
-                            <MenuItem>Manage Users</MenuItem>
+                            <MenuItem>
+                                Manage users
+                                <Link to="manage-users" />
+                            </MenuItem>
                             <MenuItem>Manage Quiz Tests</MenuItem>
                             <MenuItem>Manage Question</MenuItem>
                         </SubMenu>
