@@ -6,6 +6,7 @@ import Validate from '../../Validate/Validate';
 import axios from 'axios';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { postCreateNewUser } from '../../../services/apiServices';
 
 const ModalCreateUser = (props) => {
     const { show, setShow } = props;
@@ -52,51 +53,38 @@ const ModalCreateUser = (props) => {
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
-      };
-      
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         let errorsSubmit = {};
         let check_validate = true;
-        if(inputs.email === "" || !validateEmail(inputs.email))
-        {
+        if (inputs.email === "" || !validateEmail(inputs.email)) {
             check_validate = false;
             errorsSubmit.email = "Invalid Email";
         }
-        if(inputs.password === "")
-        {
+        if (inputs.password === "") {
             check_validate = false;
             errorsSubmit.password = "Password must not be empty";
         }
-        if(inputs.username === "")
-        {
+        if (inputs.username === "") {
             check_validate = false;
             errorsSubmit.username = "Username must not be empty";
         }
-        if(inputs.role === "")
-        {
+        if (inputs.role === "") {
             check_validate = false;
             errorsSubmit.role = "Role must not be empty";
         }
         setErrors(errorsSubmit);
-        if(check_validate == true)
-        {
-            const data = new FormData();
-            data.append('email', inputs.email);
-            data.append('password', inputs.password);
-            data.append('username', inputs.username);
-            data.append('role', inputs.role);
-            data.append('userImage', image);
-            let response = await axios.post('http://localhost:8081/api/v1/participant', data);
-            console.log("check res:", response.data);
-            if(response.data && response.data.EC === 0)
-            {
-                toast.success(response.data.EM);
+        if (check_validate == true) {
+            let data = await postCreateNewUser(inputs, image);
+            console.log("component response:", data);
+            if (data && data.EC === 0) {
+                toast.success(data.EM);
                 handleClose();
             }
-            if(response.data && response.data.EC !==0)
-            {
-                toast.error(response.data.EM);
+            if (data && data.EC !== 0) {
+                toast.error(data.EM);
             }
         }
     };
@@ -107,7 +95,7 @@ const ModalCreateUser = (props) => {
                     <Modal.Title>Add new user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Validate errors={errors}/>
+                    <Validate errors={errors} />
                     <form className="row g-3" encType='multipart/form-data' >
                         <div className="col-md-6">
                             <label className="form-label">Email</label>
@@ -147,7 +135,7 @@ const ModalCreateUser = (props) => {
                     <Button variant="secondary" onClick={() => { handleClose() }}>
                         Close
                     </Button>
-                    <Button type='submit' variant="primary" onClick={(event) => {handleSubmit(event)}} >
+                    <Button type='submit' variant="primary" onClick={(event) => { handleSubmit(event) }} >
                         Save
                     </Button>
                 </Modal.Footer>
