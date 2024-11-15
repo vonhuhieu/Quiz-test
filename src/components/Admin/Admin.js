@@ -6,6 +6,7 @@ import { Outlet } from "react-router-dom";
 import ManageUser from "./Content/ManageUser";
 import DashBoard from "./Content/DashBoard";
 
+
 const Admin = (props) => {
     const [collapsed, setCollapsed] = useState(false);
     const handleCollapsed = () => {
