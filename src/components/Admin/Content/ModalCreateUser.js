@@ -83,8 +83,11 @@ const ModalCreateUser = (props) => {
                 toast.success(data.EM);
                 handleClose();
             }
-            if (data && data.EC !== 0) {
+            else if (data && data.EC !== 0) {
                 toast.error(data.EM);
+            }
+            else {
+                toast.error("No response from server");
             }
         }
     };

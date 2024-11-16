@@ -5,12 +5,22 @@
         .btn-add-new {
             margin: 15px 0px;
         }
-        button{
+
+        button {
             display: flex;
             align-items: center;
             gap: 5px;
         }
-        
+
+        .table-users-container {
+            .table-users-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+        }
+
     }
 
     .title {
