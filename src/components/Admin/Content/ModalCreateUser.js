@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import Validate from '../../Validate/Validate';
-import axios from 'axios';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { postCreateNewUser } from '../../../services/apiServices';
@@ -80,6 +79,8 @@ const ModalCreateUser = (props) => {
             let data = await postCreateNewUser(inputs, image);
             console.log("component response:", data);
             if (data && data.EC === 0) {
+                // props.handleListUsers(data.DT);
+                props.fetchListUsers();
                 toast.success(data.EM);
                 handleClose();
             }

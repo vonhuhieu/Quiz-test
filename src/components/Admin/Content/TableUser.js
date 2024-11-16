@@ -1,20 +1,5 @@
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { getAllUsers } from "../../../services/apiServices";
-
 const TableUser = (props) => {
-    const [listUsers, setListUsers] = useState([]);
-
-    useEffect(() => {
-        fetchListUsers();
-    }, []);
-
-    const fetchListUsers = async () => {
-        let response = await getAllUsers();
-        if (response && response.EC === 0) {
-            setListUsers(response.DT);
-        }
-    };
+    const { listUsers } = props;
     const renderListUsers = () => {
         if (listUsers.length > 0) {
             return listUsers.map((value, key) => {
@@ -34,6 +19,15 @@ const TableUser = (props) => {
                     </>
                 );
             });
+        }
+        else {
+            return (
+                <>
+                    <tr>
+                        <td>No data found</td>
+                    </tr>
+                </>
+            );
         }
     };
     return (
