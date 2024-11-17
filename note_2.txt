@@ -21,3 +21,5 @@ Ctrl + chuột trái để đến component trong import
 
 
 Cần có bước trung gian gọi là interceptors trước khi người dùng nhận được response từ server
+
+Cài lodash để thao tác với mảng và object

@@ -5,13 +5,23 @@ import { useEffect, useState } from "react";
 import TableUser from "./TableUser";
 import { getAllUsers } from "../../../services/apiServices";
 import { toast } from "react-toastify";
+import ModalUpdateUser from "./ModalUpdateUser";
 
 const ManageUser = (props) => {
-  // đóng mở modal
+  // đóng mở modal create
   const [show, setShow] = useState(false);
   const handleShow = () => {
     setShow(true);
   };
+
+  // đóng mở modal update
+  const [updateUser, setUpdateUser] = useState({});
+  const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+  const handleShowModalUpdateUser = (user) => {
+    setShowModalUpdateUser(true);
+    setUpdateUser(user);
+  };
+
 
   // cập nhật list user
   const [listUsers, setListUsers] = useState([]);
@@ -22,16 +32,13 @@ const ManageUser = (props) => {
 
   const fetchListUsers = async () => {
     let response = await getAllUsers();
-    if(response && response.EC === 0)
-    {
+    if (response && response.EC === 0) {
       setListUsers(response.DT);
     }
-    else if(response && response.EC !== 0)
-    {
+    else if (response && response.EC !== 0) {
       toast.error(response.EM);
     }
-    else
-    {
+    else {
       toast.error("No response data from server");
     }
   };
@@ -52,9 +59,22 @@ const ManageUser = (props) => {
           </button>
         </div>
         <div className="table-users-container">
-          <TableUser listUsers={listUsers} />
+          <TableUser
+            listUsers={listUsers}
+            handleShowModalUpdateUser={handleShowModalUpdateUser}
+          />
         </div>
-        <ModalCreateUser show={show} setShow={setShow} handleListUsers={handleListUsers} fetchListUsers={fetchListUsers}/>
+        <ModalCreateUser
+          show={show}
+          setShow={setShow}
+          handleListUsers={handleListUsers}
+          fetchListUsers={fetchListUsers}
+        />
+        <ModalUpdateUser
+          show={showModalUpdateUser}
+          setShow={setShowModalUpdateUser}
+          updateUser={updateUser}
+        />
       </div>
     </div>
   );

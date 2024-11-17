@@ -4,19 +4,17 @@ const TableUser = (props) => {
         if (listUsers.length > 0) {
             return listUsers.map((value, key) => {
                 return (
-                    <>
                         <tr key={`table-users-${value.id}`}>
-                            <th scope="row">{value.id}</th>
+                            <td>{value.id}</td>
                             <td>{value.username}</td>
                             <td>{value.email}</td>
                             <td>{value.role}</td>
                             <td className="table-users-button">
                                 <button className="btn btn-secondary button-view">View</button>
-                                <button className="btn btn-warning button-update">Update</button>
+                                <button className="btn btn-warning button-update" onClick={() => {props.handleShowModalUpdateUser(value)}}>Update</button>
                                 <button className="btn btn-danger button-delete">Delete</button>
                             </td>
                         </tr>
-                    </>
                 );
             });
         }
