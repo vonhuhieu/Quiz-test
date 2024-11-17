@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { FcPlus } from "react-icons/fc";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import _ from 'lodash';
@@ -16,8 +15,8 @@ const ModalViewUser = (props) => {
             role: "",
             id: '',
         });
-        props.resetUpdateData();
         setPreviewImage("");
+        props.resetUpdateData();
     };
     // các input bình thường
     const [inputs, setInputs] = useState({
@@ -29,12 +28,6 @@ const ModalViewUser = (props) => {
 
     // input là file
     const [previewImage, setPreviewImage] = useState("");
-    const handleUploadImage = (event) => {
-        if (event.target && event.target.files && event.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(event.target.files[0]));
-        }
-    };
-
 
     const handleInput = (event) => {
         const { name, value } = event.target;
@@ -56,13 +49,17 @@ const ModalViewUser = (props) => {
             if (updateUser.image) {
                 setPreviewImage(`data:image/jpeg;base64,${updateUser.image}`);
             }
+            else
+            {
+                setPreviewImage("");
+            }
         }
     }, [updateUser]);
     return (
         <>
             <Modal show={show} onHide={() => { handleClose() }} size='xl' backdrop="static" className='modal-add-user'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Update user</Modal.Title>
+                    <Modal.Title>View user</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3" encType='multipart/form-data' >
@@ -85,11 +82,6 @@ const ModalViewUser = (props) => {
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
-                        </div>
-                        <div className="col-md-12">
-                            <label className="form-label label-upload" htmlFor='labelUpload'>
-                                <FcPlus />Upload File Image</label>
-                            <input type="file" disabled hidden id='labelUpload' onChange={(event) => { handleUploadImage(event) }} />
                         </div>
                         <div className="col-md-12 img-preview">
                             {previewImage ?

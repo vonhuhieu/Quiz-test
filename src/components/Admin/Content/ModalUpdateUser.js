@@ -96,6 +96,10 @@ const ModalUpdateUser = (props) => {
             if (updateUser.image) {
                 setPreviewImage(`data:image/jpeg;base64,${updateUser.image}`);
             }
+            else
+            {
+                setPreviewImage("");
+            }
             setImage("");
         }
     }, [updateUser]);
