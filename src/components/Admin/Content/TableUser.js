@@ -12,7 +12,7 @@ const TableUser = (props) => {
                             <td className="table-users-button">
                                 <button className="btn btn-secondary button-view" onClick={() => {props.handleShowModalViewUser(value)}}>View</button>
                                 <button className="btn btn-warning button-update" onClick={() => {props.handleShowModalUpdateUser(value)}}>Update</button>
-                                <button className="btn btn-danger button-delete">Delete</button>
+                                <button className="btn btn-danger button-delete" onClick={() => {props.handleShowModalDeleteUser(value)}}>Delete</button>
                             </td>
                         </tr>
                 );

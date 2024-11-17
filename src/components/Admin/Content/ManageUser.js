@@ -7,6 +7,7 @@ import { getAllUsers } from "../../../services/apiServices";
 import { toast } from "react-toastify";
 import ModalUpdateUser from "./ModalUpdateUser";
 import ModalViewUser from "./ModalViewUser";
+import ModalDeleteUser from "./ModalDeleteUser";
 
 const ManageUser = (props) => {
   // đóng mở modal create
@@ -33,6 +34,13 @@ const ManageUser = (props) => {
 
   const resetUpdateData = () => {
     setUpdateUser({});
+  };
+
+  // đóng mở modal delete
+  const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
+  const handleShowModalDeleteUser = (user) => {
+    setShowModalDeleteUser(true);
+    setUpdateUser(user);
   };
 
 
@@ -76,6 +84,7 @@ const ManageUser = (props) => {
             listUsers={listUsers}
             handleShowModalUpdateUser={handleShowModalUpdateUser}
             handleShowModalViewUser={handleShowModalViewUser}
+            handleShowModalDeleteUser={handleShowModalDeleteUser}
           />
         </div>
         <ModalCreateUser
@@ -96,6 +105,13 @@ const ManageUser = (props) => {
           setShow={setShowModalViewUser}
           updateUser={updateUser}
           resetUpdateData={resetUpdateData}
+        />
+        <ModalDeleteUser
+          show={showModalDeleteUser}
+          setShow={setShowModalDeleteUser}
+          updateUser={updateUser}
+          resetUpdateData={resetUpdateData}
+          fetchListUsers={fetchListUsers}
         />
       </div>
     </div>

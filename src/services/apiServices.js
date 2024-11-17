@@ -22,4 +22,8 @@ const putUpdateNewUser = (inputs, image) => {
     data.append('userImage', image);
     return axios.put('api/v1/participant', data);
 };
-export { postCreateNewUser, getAllUsers, putUpdateNewUser };
+
+const deleteUser = (userID) => {
+    return axios.delete(`http://localhost:8081/api/v1/participant`, userID);
+};
+export { postCreateNewUser, getAllUsers, putUpdateNewUser, deleteUser };
