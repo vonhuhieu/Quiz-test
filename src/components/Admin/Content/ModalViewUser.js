@@ -16,6 +16,7 @@ const ModalViewUser = (props) => {
             role: "",
             id: '',
         });
+        props.resetUpdateData();
         setPreviewImage("");
     };
     // các input bình thường
