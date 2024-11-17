@@ -6,6 +6,7 @@ import TableUser from "./TableUser";
 import { getAllUsers } from "../../../services/apiServices";
 import { toast } from "react-toastify";
 import ModalUpdateUser from "./ModalUpdateUser";
+import ModalViewUser from "./ModalViewUser";
 
 const ManageUser = (props) => {
   // đóng mở modal create
@@ -20,6 +21,13 @@ const ManageUser = (props) => {
   const handleShowModalUpdateUser = (user) => {
     console.log("check user", user);
     setShowModalUpdateUser(true);
+    setUpdateUser(user);
+  };
+
+  // đóng mở modal view
+  const [showModalViewUser, setShowModalViewUser] = useState(false);
+  const handleShowModalViewUser = (user) => {
+    setShowModalViewUser(true);
     setUpdateUser(user);
   };
 
@@ -67,6 +75,7 @@ const ManageUser = (props) => {
           <TableUser
             listUsers={listUsers}
             handleShowModalUpdateUser={handleShowModalUpdateUser}
+            handleShowModalViewUser={handleShowModalViewUser}
           />
         </div>
         <ModalCreateUser
@@ -80,6 +89,12 @@ const ManageUser = (props) => {
           setShow={setShowModalUpdateUser}
           updateUser={updateUser}
           fetchListUsers={fetchListUsers}
+          resetUpdateData={resetUpdateData}
+        />
+        <ModalViewUser
+          show={showModalViewUser}
+          setShow={setShowModalViewUser}
+          updateUser={updateUser}
           resetUpdateData={resetUpdateData}
         />
       </div>
