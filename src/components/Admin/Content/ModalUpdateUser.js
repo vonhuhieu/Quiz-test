@@ -7,26 +7,29 @@ import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { postCreateNewUser } from '../../../services/apiServices';
 import _ from 'lodash';
+import { putUpdateNewUser } from '../../../services/apiServices';
+
 const ModalUpdateUser = (props) => {
     const { show, setShow, updateUser } = props;
     const handleClose = () => {
         setShow(false);
         setInputs({
             email: "",
-            password: "",
             username: "",
             role: "",
+            id: '',
         });
         setPreviewImage("");
         setImage("");
         setErrors({});
+        props.resetUpdateData();
     };
     // các input bình thường
     const [inputs, setInputs] = useState({
         email: '',
-        password: '',
         username: '',
         role: '',
+        id: '',
     });
 
     // input là file
@@ -50,23 +53,10 @@ const ModalUpdateUser = (props) => {
     // Validate
     const [errors, setErrors] = useState({});
 
-    const validateEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         let errorsSubmit = {};
-        let check_validate = true;
-        if (inputs.email === "" || !validateEmail(inputs.email)) {
-            check_validate = false;
-            errorsSubmit.email = "Invalid Email";
-        }
-        if (inputs.password === "") {
-            check_validate = false;
-            errorsSubmit.password = "Password must not be empty";
-        }
+        let check_validate = true; 
         if (inputs.username === "") {
             check_validate = false;
             errorsSubmit.username = "Username must not be empty";
@@ -77,11 +67,11 @@ const ModalUpdateUser = (props) => {
         }
         setErrors(errorsSubmit);
         if (check_validate == true) {
-            let data = await postCreateNewUser(inputs, image);
+            let data = await putUpdateNewUser(inputs, image);
             console.log("component response:", data);
             if (data && data.EC === 0) {
                 // props.handleListUsers(data.DT);
-                props.fetchListUsers();
+                await props.fetchListUsers();
                 toast.success(data.EM);
                 handleClose();
             }
@@ -102,6 +92,7 @@ const ModalUpdateUser = (props) => {
                 email: updateUser.email,
                 username: updateUser.username,
                 role: updateUser.role,
+                id: updateUser.id,
             });
             if (updateUser.image) {
                 setPreviewImage(`data:image/jpeg;base64,${updateUser.image}`);

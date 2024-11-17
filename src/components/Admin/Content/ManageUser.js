@@ -18,8 +18,13 @@ const ManageUser = (props) => {
   const [updateUser, setUpdateUser] = useState({});
   const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
   const handleShowModalUpdateUser = (user) => {
+    console.log("check user", user);
     setShowModalUpdateUser(true);
     setUpdateUser(user);
+  };
+
+  const resetUpdateData = () => {
+    setUpdateUser({});
   };
 
 
@@ -74,6 +79,8 @@ const ManageUser = (props) => {
           show={showModalUpdateUser}
           setShow={setShowModalUpdateUser}
           updateUser={updateUser}
+          fetchListUsers={fetchListUsers}
+          resetUpdateData={resetUpdateData}
         />
       </div>
     </div>

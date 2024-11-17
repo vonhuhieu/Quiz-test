@@ -79,7 +79,7 @@ const ModalCreateUser = (props) => {
             let data = await postCreateNewUser(inputs, image);
             if (data && data.EC === 0) {
                 // props.handleListUsers(data.DT);
-                props.fetchListUsers();
+                await props.fetchListUsers();
                 toast.success(data.EM);
                 handleClose();
             }
