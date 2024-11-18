@@ -6,6 +6,8 @@ import { useState } from 'react';
 import Validate from '../Validate/Validate';
 import { postRegister } from '../../services/apiServices';
 import { toast } from 'react-toastify';
+import { IoEyeOff } from "react-icons/io5";
+
 
 const Register = (props) => {
     // state
@@ -122,7 +124,11 @@ const Register = (props) => {
                                     onChange={(event) => { handleInput(event) }}
                                 />
                             }
-                            <FaEye onClick={() => { handleShowPassword() }} />
+                            {!showPassWord ?
+                                <FaEye onClick={() => { handleShowPassword() }} />
+                                :
+                                <IoEyeOff onClick={() => { handleShowPassword() }} />
+                            }
                         </div>
                     </div>
                     <div className='form-group'>

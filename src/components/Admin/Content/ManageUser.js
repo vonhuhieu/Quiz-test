@@ -36,7 +36,7 @@ const ManageUser = (props) => {
   };
 
   // limit User in a paginate
-  const LIMIT_USER = 1;
+  const LIMIT_USER = 3;
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
