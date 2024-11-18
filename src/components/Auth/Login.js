@@ -22,6 +22,10 @@ const Login = (props) => {
     const handleHome = () => {
         navigate('/');
     };
+
+    const handleSignUp = () => {
+        navigate('/register');
+    };
     const handleInput = (event) => {
         const { name, value } = event.target;
         setInputs((prevInputs) => ({
@@ -48,7 +52,6 @@ const Login = (props) => {
         }
         setErrors(errorsSubmit);
         if (check_validate == true) {
-            setErrors({});
             let response = await postLogin(inputs.email, inputs.password);
             if(response && response.EC === 0)
             {
@@ -69,7 +72,7 @@ const Login = (props) => {
         <div className="login-container">
             <div className='header'>
                 <span>Don't have an account yet?</span>
-                <button>Sign up</button>
+                <button onClick={() => {handleSignUp()}}>Sign up</button>
             </div>
             <div className='title col-4 mx-auto'>
                 HoiDanIT & Eric
