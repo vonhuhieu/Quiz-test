@@ -5,6 +5,7 @@ const TableUserPaginate = (props) => {
     const { listUsers, pageCount } = props;
     const handlePageClick = (event) => {
         props.fetchListUsersWithPaginate(parseInt(event.selected) + 1);
+        props.setCurrentPage(parseInt(event.selected) + 1);
         console.log(
             `User requested page number ${event.selected}`
         );
@@ -71,6 +72,7 @@ const TableUserPaginate = (props) => {
                 nextLinkClassName="page-link"
                 activeClassName="active"
                 disabledClassName="disabled"
+                forcePage={props.currentPage - 1}
             />
         </>
     );

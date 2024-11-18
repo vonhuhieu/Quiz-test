@@ -70,7 +70,9 @@ const ModalUpdateUser = (props) => {
             console.log("component response:", data);
             if (data && data.EC === 0) {
                 // props.handleListUsers(data.DT);
-                await props.fetchListUsers();
+                // await props.fetchListUsers();
+                await props.fetchListUsersWithPaginate(props.currentPage);
+                props.setCurrentPage(props.currentPage);
                 toast.success(data.EM);
                 handleClose();
             }
