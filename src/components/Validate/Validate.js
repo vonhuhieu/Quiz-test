@@ -5,10 +5,9 @@ const Validate = (props) => {
     const { errors } = props;
     const renderErrors = () => {
         if (Object.keys(errors).length > 0) {
-            toast.error(errors.email)
-            toast.error(errors.password)
-            toast.error(errors.username)
-            toast.error(errors.role)
+            Object.keys(errors).map((key, index) => {
+                toast.error(errors[key])
+            });
         }
     };
 
