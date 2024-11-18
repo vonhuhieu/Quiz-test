@@ -30,4 +30,13 @@ const deleteUser = (userID) => {
 const getUserWithPaginate = (page, limit) => {
     return axios.get(`http://localhost:8081/api/v1/participant?page=${page}&limit=${limit}`);
 };
-export { postCreateNewUser, getAllUsers, putUpdateNewUser, deleteUser, getUserWithPaginate };
+
+const postLogin = (email, password) => {
+    return axios.post(`http://localhost:8081/api/v1/login`, { email: email, password: password });
+};
+
+// cách viết khác
+// const postLogin = (email, password) => {
+//     return axios.post(`http://localhost:8081/api/v1/login`, { email, password });
+// };
+export { postCreateNewUser, getAllUsers, putUpdateNewUser, deleteUser, getUserWithPaginate, postLogin };

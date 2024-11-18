@@ -3,9 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from "react-icons/fc";
 import Validate from '../../Validate/Validate';
+import { postCreateNewUser } from '../../../services/apiServices';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { postCreateNewUser } from '../../../services/apiServices';
 
 const ModalCreateUser = (props) => {
     const { show, setShow } = props;
@@ -145,19 +145,6 @@ const ModalCreateUser = (props) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
         </>
     );
 }

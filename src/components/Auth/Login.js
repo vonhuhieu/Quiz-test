@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import './Login.scss';
 import Validate from '../Validate/Validate';
-import { ToastContainer, Bounce } from 'react-toastify';
+import { ToastContainer, Bounce, toast } from 'react-toastify';
+import { IoMdHome } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
+import { postLogin } from '../../services/apiServices';
+
 const Login = (props) => {
     // state
     const [inputs, setInputs] = useState({
@@ -11,7 +15,13 @@ const Login = (props) => {
 
     const [errors, setErrors] = useState({});
 
+    // navigate
+    const navigate = useNavigate();
+
     // function con
+    const handleHome = () => {
+        navigate('/');
+    };
     const handleInput = (event) => {
         const { name, value } = event.target;
         setInputs((prevInputs) => ({
@@ -24,7 +34,7 @@ const Login = (props) => {
         return emailRegex.test(email);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         let errorsSubmit = {};
         let check_validate = true;
@@ -39,13 +49,27 @@ const Login = (props) => {
         setErrors(errorsSubmit);
         if (check_validate == true) {
             setErrors({});
-            console.log("User info: ", inputs);
+            let response = await postLogin(inputs.email, inputs.password);
+            if(response && response.EC === 0)
+            {
+                toast.success(response.EM);
+                navigate('/');
+            }
+            else if(response && response.EC !== 0)
+            {
+                toast.error(response.EM);
+            }
+            else
+            {
+                toast.error("No response from server");
+            }
         }
     };
     return (
         <div className="login-container">
             <div className='header'>
-                Don't have an account yet?
+                <span>Don't have an account yet?</span>
+                <button>Sign up</button>
             </div>
             <div className='title col-4 mx-auto'>
                 HoiDanIT & Eric
@@ -80,19 +104,12 @@ const Login = (props) => {
                     </div>
                 </form>
             </div>
-            <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
+
+            <div className='back col-12'>
+                <span onClick={() => {handleHome()}}>
+                    <IoMdHome />Go to Homepage
+                </span>
+            </div>
         </div>
     );
 };
