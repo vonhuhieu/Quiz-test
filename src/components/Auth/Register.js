@@ -124,7 +124,7 @@ const Register = (props) => {
                                     onChange={(event) => { handleInput(event) }}
                                 />
                             }
-                            {!showPassWord ?
+                            {showPassWord ?
                                 <FaEye onClick={() => { handleShowPassword() }} />
                                 :
                                 <IoEyeOff onClick={() => { handleShowPassword() }} />
