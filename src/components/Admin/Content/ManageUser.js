@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import ModalUpdateUser from "./ModalUpdateUser";
 import ModalViewUser from "./ModalViewUser";
 import ModalDeleteUser from "./ModalDeleteUser";
+import TableUserPaginate from "./TableUserPaginate";
+import { getUserWithPaginate } from "../../../services/apiServices";
 
 const ManageUser = (props) => {
   // đóng mở modal create
@@ -32,6 +34,10 @@ const ManageUser = (props) => {
     setUpdateUser(user);
   };
 
+  // limit User in a paginate
+  const LIMIT_USER = 2;
+  const [pageCount, setPageCount] = useState(0);
+
   const resetUpdateData = () => {
     setUpdateUser({});
   };
@@ -48,13 +54,29 @@ const ManageUser = (props) => {
   const [listUsers, setListUsers] = useState([]);
 
   useEffect(() => {
-    fetchListUsers();
+    // fetchListUsers();
+    fetchListUsersWithPaginate(1);
   }, []);
 
   const fetchListUsers = async () => {
     let response = await getAllUsers();
     if (response && response.EC === 0) {
       setListUsers(response.DT);
+    }
+    else if (response && response.EC !== 0) {
+      toast.error(response.EM);
+    }
+    else {
+      toast.error("No response data from server");
+    }
+  };
+
+  const fetchListUsersWithPaginate = async (page) => {
+    let response = await getUserWithPaginate(page, LIMIT_USER);
+    if (response && response.EC === 0) {
+      console.log('check res: ', response.DT);
+      setListUsers(response.DT.users);
+      setPageCount(response.DT.totalPages);
     }
     else if (response && response.EC !== 0) {
       toast.error(response.EM);
@@ -80,11 +102,19 @@ const ManageUser = (props) => {
           </button>
         </div>
         <div className="table-users-container">
-          <TableUser
+          {/* <TableUser
             listUsers={listUsers}
             handleShowModalUpdateUser={handleShowModalUpdateUser}
             handleShowModalViewUser={handleShowModalViewUser}
             handleShowModalDeleteUser={handleShowModalDeleteUser}
+          /> */}
+          <TableUserPaginate
+            listUsers={listUsers}
+            handleShowModalUpdateUser={handleShowModalUpdateUser}
+            handleShowModalViewUser={handleShowModalViewUser}
+            handleShowModalDeleteUser={handleShowModalDeleteUser}
+            fetchListUsersWithPaginate={fetchListUsersWithPaginate}
+            pageCount={pageCount}
           />
         </div>
         <ModalCreateUser
