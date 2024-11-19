@@ -25,3 +25,4 @@ Cần có bước trung gian gọi là interceptors trước khi người dùng 
 Cài lodash để thao tác với mảng và object
 
 cài nprogress@0.2.0 để làm thanh loading
+cài redux-persist@6.0.0
