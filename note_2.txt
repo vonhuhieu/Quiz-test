@@ -26,3 +26,8 @@ Cài lodash để thao tác với mảng và object
 
 cài nprogress@0.2.0 để làm thanh loading
 cài redux-persist@6.0.0
+
+Quy trình hoạt động của redux
+Reducer = State + Action (xử lý và trả về state mới).
+Root Reducer = Kết hợp các reducer lại thành Store.
+Component = useSelector để truy cập state và useDispatch để cập nhật state thông qua action.
