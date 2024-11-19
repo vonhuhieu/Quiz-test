@@ -5,6 +5,8 @@ import { ToastContainer, Bounce, toast } from 'react-toastify';
 import { IoMdHome } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../services/apiServices';
+import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/action/userAction';
 
 const Login = (props) => {
     // state
@@ -17,6 +19,9 @@ const Login = (props) => {
 
     // navigate
     const navigate = useNavigate();
+
+    // redux
+    const dispatch = useDispatch();
 
     // function con
     const handleHome = () => {
@@ -53,17 +58,15 @@ const Login = (props) => {
         setErrors(errorsSubmit);
         if (check_validate == true) {
             let response = await postLogin(inputs.email, inputs.password);
-            if(response && response.EC === 0)
-            {
+            if (response && response.EC === 0) {
+                dispatch(doLogin(response));
                 toast.success(response.EM);
                 navigate('/');
             }
-            else if(response && response.EC !== 0)
-            {
+            else if (response && response.EC !== 0) {
                 toast.error(response.EM);
             }
-            else
-            {
+            else {
                 toast.error("No response from server");
             }
         }
@@ -72,7 +75,7 @@ const Login = (props) => {
         <div className="login-container">
             <div className='header'>
                 <span>Don't have an account yet?</span>
-                <button onClick={() => {handleSignUp()}}>Sign up</button>
+                <button onClick={() => { handleSignUp() }}>Sign up</button>
             </div>
             <div className='title col-4 mx-auto'>
                 HoiDanIT & Eric
@@ -109,7 +112,7 @@ const Login = (props) => {
             </div>
 
             <div className='back col-12'>
-                <span onClick={() => {handleHome()}}>
+                <span onClick={() => { handleHome() }}>
                     <IoMdHome />Go to Homepage
                 </span>
             </div>
