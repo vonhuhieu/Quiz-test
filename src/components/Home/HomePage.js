@@ -1,8 +1,22 @@
 import VideoHomePage from '../../assets/video-homepage.webm';
 import { useSelector } from 'react-redux';
+import ListQuiz from '../User/ListQuiz';
+import { useNavigate } from 'react-router-dom';
 const HomePage = (props) => {
+    // navigate
+    const navigate = useNavigate();
+
+    // redux
     const isAuthenticated = useSelector(state => state.user.isAuthenticated);
     const account = useSelector(state => state.user.account);
+
+    // function
+    const handleListQuiz = () => {
+        navigate('/users');
+    };
+    const handleNotLogin = () => {
+        navigate('/login');
+    }
     return (
         <div className="homepage-container">
             <video autoPlay muted loop>
@@ -13,13 +27,17 @@ const HomePage = (props) => {
             </video>
             <div className='homepage-content'>
                 <div className='first-title'>
-                    Create a UI with bootstrap
+                    QUIZ
                 </div>
                 <div className='second-title'>
-                    CSS in the web
+                    Doing quiz on website
                 </div>
                 <div className='third-title'>
-                    <button className='button'>Let's go</button>
+                    {isAuthenticated ?
+                        <button className='button' onClick={() => { handleListQuiz() }}>Doing Quiz Now</button>
+                        :
+                        <button className='button' onClick={() => { handleNotLogin() }}>Let's Start. It's free</button>
+                    }
                 </div>
             </div>
         </div>
