@@ -48,8 +48,38 @@
             color: white;
             background: #464343;
 
+            &:disabled{
+                background-color: white;
+                color: #797373;
+                cursor: no-drop;
+            }
+
             &:hover {
                 background-color: black;
+            }
+        }
+
+        .btn-submit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+
+            .loader-icon {
+                margin-right: 7px;
+                top: 2px;
+                animation: spin 1s infinite linear;
+            }
+
+            @keyframes spin {
+                from {
+                    transform: scale(1) rotate(0deg);
+                }
+
+                to {
+                    transform: scale(1) rotate(360deg);
+                }
             }
         }
     }

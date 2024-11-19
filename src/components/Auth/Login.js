@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../services/apiServices';
 import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/action/userAction';
+import { FaSpinner } from "react-icons/fa";
+
 
 const Login = (props) => {
     // state
@@ -14,6 +16,8 @@ const Login = (props) => {
         email: '',
         password: '',
     });
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [errors, setErrors] = useState({});
 
@@ -57,14 +61,17 @@ const Login = (props) => {
         }
         setErrors(errorsSubmit);
         if (check_validate == true) {
+            setIsLoading(true);
             let response = await postLogin(inputs.email, inputs.password);
             if (response && response.EC === 0) {
                 dispatch(doLogin(response));
                 toast.success(response.EM);
+                setIsLoading(false);
                 navigate('/');
             }
             else if (response && response.EC !== 0) {
                 toast.error(response.EM);
+                setIsLoading(false);
             }
             else {
                 toast.error("No response from server");
@@ -106,7 +113,10 @@ const Login = (props) => {
                     </div>
                     <span className='forgot-password'>Forgot password?</span>
                     <div>
-                        <button className='btn-submit'>Login</button>
+                        <button className='btn-submit' disabled={isLoading}>
+                            {isLoading && <FaSpinner className='loader-icon' />}
+                            <span>Login</span>
+                        </button>
                     </div>
                 </form>
             </div>

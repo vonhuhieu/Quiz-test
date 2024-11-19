@@ -32,7 +32,7 @@ const getUserWithPaginate = (page, limit) => {
 };
 
 const postLogin = (email, password) => {
-    return axios.post(`http://localhost:8081/api/v1/login`, { email: email, password: password });
+    return axios.post(`http://localhost:8081/api/v1/login`, { email: email, password: password, delay: 3000 });
 };
 
 // cách viết khác
